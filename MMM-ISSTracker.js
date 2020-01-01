@@ -42,7 +42,7 @@ Module.register("MMM-ISSTracker", {
 
         let cell2 = document.createElement('td');
         cell2.innerHTML = value
-        cell2.className = 'align-right'
+        cell2.className = 'align-right bright'
 
         headerRow.append(cell);
         headerRow.append(cell2);
@@ -55,11 +55,12 @@ Module.register("MMM-ISSTracker", {
         var wrapper = document.createElement("div");
 
         var header = document.createElement("div");
-        header.className = "light bright";
+        header.className = "light";
 
         var sp1 = document.createElement("span");
         sp1.className = "fas fa-satellite";
         var sp2 = document.createElement("span");
+        sp2.className = "bright";
 
         if (this.data.visible)
         {
