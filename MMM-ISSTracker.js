@@ -20,16 +20,22 @@ Module.register("MMM-ISSTracker", {
     },
 
     start: function () {
+        this.last_visible = false;
         var self = this;
         self.sendSocketNotification('get_state', {'lat': self.config.lat, 'lon': self.config.lon});
         setInterval(function () {
             self.sendSocketNotification('get_state', {'lat': self.config.lat, 'lon': self.config.lon});
-        }, 4000);
+        }, 10000);
     },
 
     socketNotificationReceived: function(notification, payload) {
         this.data = {...payload};
         this.updateDom();
+        if (!this.last_visible && this.data.visible)
+        {
+            this.sendNotification("SHOW_ALERT", {title: "ISS Passage", message: "ISS is now visible!", timer: 10000});
+        }
+        this.last_visible = this.data.visible;
     },
 
     createRow: function (wrapper, type, value) {
