@@ -46,11 +46,11 @@ function when_is_iss_at(lat, lon, cbk)
             ret = passes[0]
             currentTime = Date.now();
 
-            if (currentTime > ret.risetime + ret.duration)
+            if (currentTime > ret.risetime*1000 + ret.duration*1000)
             {
                 for(var i = 0; i < passes.length; i++)
                 {
-                    if (passes[i].risetime > currentTime)
+                    if (passes[i].risetime*1000 > currentTime)
                     {
                         ret = passes[i];
                         break;
@@ -180,7 +180,7 @@ module.exports = NodeHelper.create({
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 when_is_iss_at(local_2d_coord.lat, local_2d_coord.lon, function(next_passage){
                     rt = new Date(next_passage.risetime*1000);
-                    dur = new Date(next_passage.duration*1000);
+                    dur = next_passage.duration*1000;
                     ft = rt + dur
 
                     currentTime = Date.now();
